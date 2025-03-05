@@ -1,23 +1,29 @@
 {
-  "name": "@terrylinla/react-native-sketch-canvas",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/terrylinla/react-native-sketch-canvas"
+  "name": "j",
+  "license": "0BSD",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
   },
-  "version": "0.8.0",
-  "description": "react-native-sketch-canvas allows you to draw / sketch on both iOS and Android devices and sync the drawing data between users. Of course you can save as image.",
-  "author": "Terry Lin",
-  "main": "index.js",
-  "keywords": [
-    "react-native",
-    "react-native-sketch",
-    "react-native-svg",
-    "react",
-    "native",
-    "sketch",
-    "svg",
-    "draw"
-  ],
-  "nativePackage": true,
-  "license": "MIT"
+  "dependencies": {
+    "@shopify/react-native-skia": "^1.11.8",
+    "expo": "~52.0.37",
+    "expo-status-bar": "~2.0.1",
+    "perfect-freehand": "^1.2.2",
+    "react": "18.3.1",
+    "react-native": "0.76.7",
+    "react-native-gesture-handler": "~2.20.2",
+    "react-native-reanimated": "~3.16.1",
+    "react-native-svg": "^15.11.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@types/react": "~18.3.12",
+    "typescript": "^5.3.3"
+  },
+  "private": true
 }
