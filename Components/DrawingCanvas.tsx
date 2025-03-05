@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, PanResponder, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, PanResponder } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { getStroke } from 'perfect-freehand';
-import { getSvgPathFromStroke } from './getSvgFromStroke';
+import { getSvgPathFromStroke } from '../utils/getSvgFromStroke';
 
 const options = {
   size: 16,
@@ -22,26 +22,32 @@ const options = {
   },
 };
 
-const DrawingCanvas = () => {
+interface DrawingCanvasProps {
+  clear: Boolean;
+}
+
+const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ clear }) => {
   const [points, setPoints] = useState<number[][]>([]);
+
+  useEffect(() => {
+    if (clear) {
+      setPoints([]);
+    }
+  }, [clear]);
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
-    onPanResponderMove: (_, gesture) => {
-      setPoints(prev => [...prev, [gesture.moveX, gesture.moveY, 0.5]]);
+    onPanResponderMove: (evt) => {
+      const { locationX, locationY } = evt.nativeEvent;
+      setPoints(prev => [...prev, [locationX, locationY, 0.5]]);
     }
   });
 
   const stroke = getStroke(points, options);
   const pathData = getSvgPathFromStroke(stroke);
 
-  const handleReset = () => {
-    setPoints([]);
-  };
-
   return (
     <View style={styles.container} {...panResponder.panHandlers}>
-      <Button title="Reset" onPress={handleReset} />
       <Svg style={styles.svg}>
         <Path d={pathData} stroke="black" strokeWidth={1} fill="black" />
       </Svg>
@@ -57,13 +63,7 @@ const styles = StyleSheet.create({
   svg: {
     flex: 1,
     backgroundColor: 'magenta',
-    
   },
-  button:{
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-  }
 });
 
 export default DrawingCanvas;
