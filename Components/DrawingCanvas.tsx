@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, PanResponder } from 'react-native';
+import { View, StyleSheet, PanResponder, Dimensions } from 'react-native';
 import Svg, { Path, Defs, ClipPath, G, Image } from 'react-native-svg';
 import { getStroke } from 'perfect-freehand';
 import { getSvgPathFromStroke } from '../utils/getSvgFromStroke';
@@ -7,7 +7,7 @@ import { dzongkhaLetters } from '../data/dzongkhaLetters';
 import Kha from '../assets/kha.svg';
 
 const options = {
-  size: 40,
+  size: 45,
   smoothing: 1,
   streamline: 1,
   easing: (t: number) => t,
@@ -53,12 +53,10 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ clear }) => {
     }
   });
 
-  const scaleFactor = 2; 
-
   return (
     <View style={styles.container} {...panResponder.panHandlers}>
-      <Svg style={styles.svg} width={400} height={350}>
-      <Kha width={400} height={350} />
+      <Svg style={styles.svg} width={210} height={200}>
+        <Kha/>
         <Defs>
           <ClipPath id="clip">
             <Path d={clipPathData} fill="black" />
@@ -66,11 +64,7 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ clear }) => {
         </Defs>
         <G clipPath="url(#clip)">
           <Path d={pathData} stroke="black" strokeWidth={1} fill="black" />
-          <G scale={scaleFactor}>
-
-          </G>
         </G>
-
       </Svg>
     </View>
   );
@@ -79,12 +73,12 @@ const DrawingCanvas: React.FC<DrawingCanvasProps> = ({ clear }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 20,
-    backgroundColor: 'pink', 
+    backgroundColor: 'white', 
     justifyContent: 'center',
     alignItems: 'center',
   },
   svg: {
-    backgroundColor: 'white'
+    backgroundColor: 'pink'
   },
 });
 
